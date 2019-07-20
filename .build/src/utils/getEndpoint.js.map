@@ -1,0 +1,1 @@
+{"version":3,"file":"getEndpoint.js","sourceRoot":"","sources":["../../../src/utils/getEndpoint.ts"],"names":[],"mappings":";;AAAA,MAAM,SAAS,GAA8B;IAC3C,UAAU,EAAE,+BAA+B;CAC5C,CAAC;AAEF,SAAgB,WAAW,CAAC,WAAmB;IAC7C,OAAO,SAAS,CAAC,WAAW,CAAC,IAAI,+BAA+B,CAAC;AACnE,CAAC;AAFD,kCAEC"}
