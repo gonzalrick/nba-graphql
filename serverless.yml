@@ -63,12 +63,17 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  schedule:
-    handler: src/schedule.default
+  graphql:
+    handler: graphql/server.handler
     events:
       - http:
+          path: graphql
+          method: post
+          cors: true
+      - http:
+          path: graphql
           method: get
-          path: schedule
+          cors: true
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details

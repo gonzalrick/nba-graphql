@@ -21,6 +21,7 @@
     "apollo-boost": "^0.4.3",
     "apollo-datasource-rest": "^0.3.1",
     "apollo-server-express": "^2.7.0",
+    "apollo-server-lambda": "^2.7.0",
     "aws-sdk": "^2.496.0",
     "cors": "^2.8.5",
     "dataloader": "^1.4.0",
