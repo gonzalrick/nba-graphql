@@ -1,0 +1,10 @@
+overwrite: true
+schema: http://localhost:3001/graphql
+generates:
+  ./graphql/generated/index.ts:
+    plugins:
+      - 'typescript-common'
+      - 'typescript-server'
+      - 'typescript-resolvers'
+    config:
+      contextType: ../interface#IContext
