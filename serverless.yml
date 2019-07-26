@@ -10,24 +10,12 @@
 #    docs.serverless.com
 #
 # Happy Coding!
-
-service: nba-graphql
 #app: your-app-name
 #tenant: your-tenant-name
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
-
-plugins:
-  - serverless-offline
-  - serverless-plugin-typescript
-
-provider:
-  name: aws
-  runtime: nodejs10.x
-  environment:
-    NODE_ENV: ${opt:stage, 'local'}
 
 # you can overwrite defaults here
 #  stage: dev
@@ -61,6 +49,19 @@ provider:
 #  exclude:
 #    - exclude-me.js
 #    - exclude-me-dir/**
+service: nba-graphql
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-typescript
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  profile: user2
+  region: ap-southeast-2
+  environment:
+    NODE_ENV: ${opt:stage, 'local'}
 
 functions:
   graphql:

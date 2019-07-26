@@ -33,7 +33,7 @@
     "graphql-tools": "^4.0.5",
     "morgan": "^1.9.1",
     "node-fetch": "^2.3.0",
-    "typescript": "^3.2.2"
+    "typescript": "^3.3.3333"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.30",
@@ -45,7 +45,6 @@
     "prettier": "^1.16.1",
     "serverless": "^1.48.2",
     "serverless-offline": "^5.8.0",
-    "serverless-plugin-typescript": "^1.1.9",
-    "typescript": "^3.3.3333"
+    "serverless-plugin-typescript": "^1.1.9"
   }
 }
