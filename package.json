@@ -4,9 +4,7 @@
   "private": true,
   "main": "graphql/server.ts",
   "scripts": {
-    "prestart": "npm run build",
-    "start": "node build/server.js",
-    "lambda": "npx serverless offline start --port 4000",
+    "start": "npx serverless offline start --port 4000",
     "build": "tsc",
     "generate": "gql-gen --config codegen.yml",
     "test": "echo \"Error: no test specified\" && exit 1"
