@@ -1,8 +1,8 @@
-
 import { Schedule, ScheduleTeam, Team, Player, Game } from '../generated';
+import { getPeriod } from '../utils';
 
 interface Linescore {
-  score: string,
+  score: string;
 }
 
 export function reducePlayer(data: any): Player {
@@ -31,7 +31,7 @@ export function reduceTeam(data: any): Team {
     confName: data.confName,
     divName: data.divName,
     logo: getTeamLogoUrl(data.fullName),
-  }
+  };
 }
 
 export function reduceSchedule(data: any): Schedule {
@@ -43,11 +43,12 @@ export function reduceSchedule(data: any): Schedule {
     startDateEastern: data.startDateEastern,
     nugget: data.nugget.text,
     period: data.period,
+    periodString: getPeriod(data),
     vTeam: reduceScheduleTeam(data.vTeam),
     hTeam: reduceScheduleTeam(data.hTeam),
     seasonYear: data.seasonYear,
     statusNum: data.statusNum,
-  }
+  };
 }
 
 export function reduceScheduleTeam(data: any): ScheduleTeam {
@@ -58,7 +59,7 @@ export function reduceScheduleTeam(data: any): ScheduleTeam {
     loss: Number(data.loss),
     win: Number(data.win),
     triCode: data.triCode,
-  }
+  };
 }
 
 export function reduceGame(data: any): Game {
@@ -71,13 +72,13 @@ export function reduceGame(data: any): Game {
     startTimeUTC: data.basicGameData.startTimeUTC,
     startDateEastern: data.basicGameData.startDateEastern,
     clock: data.basicGameData.clock,
-    nugget: data.basicGameData.nugget.text || "",
+    nugget: data.basicGameData.nugget.text || '',
     playoffs: { summary: data.basicGameData.playoffs.seriesSummaryText },
     period: data.basicGameData.period,
     vTeam: reduceScheduleTeam(data.basicGameData.vTeam),
     hTeam: reduceScheduleTeam(data.basicGameData.hTeam),
     stats: data.stats,
-  }
+  };
 }
 
 export function getTeamLogoUrl(teamName: string) {

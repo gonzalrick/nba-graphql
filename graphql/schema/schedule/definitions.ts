@@ -12,6 +12,7 @@ const definitions = gql`
     isGameActivated: Boolean!
     nugget: String!
     period: Period!
+    periodString: String!
     seasonYear: String!
     startTimeUTC: String!
     startDateEastern: String!

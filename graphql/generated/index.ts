@@ -225,6 +225,8 @@ export interface Schedule {
 
   period: Period;
 
+  periodString: string;
+
   seasonYear: string;
 
   startTimeUTC: string;
@@ -1124,6 +1126,8 @@ export namespace ScheduleResolvers {
 
     period?: PeriodResolver<Period, TypeParent, TContext>;
 
+    periodString?: PeriodStringResolver<string, TypeParent, TContext>;
+
     seasonYear?: SeasonYearResolver<string, TypeParent, TContext>;
 
     startTimeUTC?: StartTimeUtcResolver<string, TypeParent, TContext>;
@@ -1162,6 +1166,11 @@ export namespace ScheduleResolvers {
   > = Resolver<R, Parent, TContext>;
   export type PeriodResolver<
     R = Period,
+    Parent = Schedule,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+  export type PeriodStringResolver<
+    R = string,
     Parent = Schedule,
     TContext = IContext
   > = Resolver<R, Parent, TContext>;

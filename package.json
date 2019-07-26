@@ -4,8 +4,7 @@
   "private": true,
   "main": "graphql/server.ts",
   "scripts": {
-    "prestart": "npm run build",
-    "start": "node build/server.js",
+    "start": "npx serverless offline start --port 4000",
     "build": "tsc",
     "generate": "gql-gen --config codegen.yml",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,26 +16,33 @@
     "@types/graphql": "^14.2.2",
     "@types/morgan": "^1.7.35",
     "@types/node-fetch": "^2.1.4",
+    "apollo-boost": "^0.4.3",
     "apollo-datasource-rest": "^0.3.1",
     "apollo-server-express": "^2.7.0",
+    "apollo-server-lambda": "^2.7.0",
+    "aws-sdk": "^2.496.0",
     "cors": "^2.8.5",
     "dataloader": "^1.4.0",
     "date-fns": "^1.30.1",
     "express": "^4.16.4",
     "graphql": "^14.1.1",
     "graphql-subscriptions": "^1.1.0",
+    "graphql-tag": "^2.10.1",
     "graphql-tools": "^4.0.5",
     "morgan": "^1.9.1",
     "node-fetch": "^2.3.0",
-    "typescript": "^3.2.2",
-    "graphql-tag": "^2.10.1"
+    "typescript": "^3.3.3333"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.30",
+    "@types/node": "^12.6.8",
     "graphql-code-generator": "^0.17.0",
     "graphql-codegen-typescript-common": "^0.17.0",
     "graphql-codegen-typescript-resolvers": "^0.17.0",
     "graphql-codegen-typescript-server": "^0.17.0",
     "prettier": "^1.16.1",
-    "typescript": "^3.3.3333"
+    "serverless": "^1.48.2",
+    "serverless-offline": "^5.8.0",
+    "serverless-plugin-typescript": "^1.1.9"
   }
 }
