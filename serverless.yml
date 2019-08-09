@@ -58,8 +58,7 @@ plugins:
 provider:
   name: aws
   runtime: nodejs10.x
-  profile: user2
-  region: ap-southeast-2
+  region: us-east-1
   environment:
     NODE_ENV: ${opt:stage, 'local'}
 
