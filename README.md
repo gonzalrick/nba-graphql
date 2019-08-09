@@ -2,7 +2,7 @@
 
 An API for NBA written in TypeScript and GraphQL.
 
-[Try it out!](https://hu1c0k7001.execute-api.ap-southeast-2.amazonaws.com/dev/graphql)
+[Try it out!](https://nba.rickyg.io/v1/graphql)
 
 ## Usage
 
