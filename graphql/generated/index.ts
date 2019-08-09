@@ -209,7 +209,7 @@ export interface GamePlayerStats {
 }
 
 export interface Playoffs {
-  summary: string;
+  summary?: Maybe<string>;
 }
 
 export interface Schedule {
@@ -1102,11 +1102,11 @@ export namespace GamePlayerStatsResolvers {
 
 export namespace PlayoffsResolvers {
   export interface Resolvers<TContext = IContext, TypeParent = Playoffs> {
-    summary?: SummaryResolver<string, TypeParent, TContext>;
+    summary?: SummaryResolver<Maybe<string>, TypeParent, TContext>;
   }
 
   export type SummaryResolver<
-    R = string,
+    R = Maybe<string>,
     Parent = Playoffs,
     TContext = IContext
   > = Resolver<R, Parent, TContext>;

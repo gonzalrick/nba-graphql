@@ -73,7 +73,9 @@ export function reduceGame(data: any): Game {
     startDateEastern: data.basicGameData.startDateEastern,
     clock: data.basicGameData.clock,
     nugget: data.basicGameData.nugget.text || '',
-    playoffs: { summary: data.basicGameData.playoffs.seriesSummaryText },
+    playoffs: data.basicGameData.playoffs
+      ? { summary: data.basicGameData.playoffs.seriesSummaryText }
+      : null,
     period: data.basicGameData.period,
     vTeam: reduceScheduleTeam(data.basicGameData.vTeam),
     hTeam: reduceScheduleTeam(data.basicGameData.hTeam),

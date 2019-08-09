@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-express';
+import { gql } from 'apollo-server-lambda';
 
 const definitions = gql`
   extend type Query {

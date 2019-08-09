@@ -1,9 +1,14 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 import fetch from 'node-fetch';
 
-import { Schedule, Team, Player } from '../generated';
+import { Schedule, Team, Player, Game } from '../generated';
 import { has, get, put } from '../utils/storage';
-import { reduceSchedule, reduceTeam, reducePlayer, reduceGame } from './reducers';
+import {
+  reduceSchedule,
+  reduceTeam,
+  reducePlayer,
+  reduceGame,
+} from './reducers';
 
 export class NbaAPI extends RESTDataSource {
   constructor() {
@@ -12,12 +17,13 @@ export class NbaAPI extends RESTDataSource {
   }
 
   async getSchedule(date: string): Promise<Schedule[]> {
-    const { games } = await this.get(`v2/${date}/scoreboard.json`)
-      .catch(err => console.log(err));
+    const { games } = await this.get(`v2/${date}/scoreboard.json`).catch(err =>
+      console.log(err),
+    );
     return games.map((game: any) => reduceSchedule(game));
   }
 
-  async getGame(date: string, gameId: string): Promise<any> {
+  async getGame(date: string, gameId: string): Promise<Game> {
     const data = await this.get(`v1/${date}/${gameId}_boxscore.json`);
     return reduceGame(data);
   }
@@ -28,8 +34,9 @@ export class NbaAPI extends RESTDataSource {
       return get(key);
     }
 
-    let data = await this.get(`v1/${date}/teams.json`)
-      .catch(err => console.log(err));
+    let data = await this.get(`v1/${date}/teams.json`).catch(err =>
+      console.log(err),
+    );
     if (!data) {
       data = await fetch(`${this.baseURL}v1/${date}/teams.json`)
         .then(res => res.json())
@@ -46,8 +53,9 @@ export class NbaAPI extends RESTDataSource {
       return get(key);
     }
 
-    let data = await this.get(`v1/${date}/players.json`)
-      .catch(err => console.log(err));
+    let data = await this.get(`v1/${date}/players.json`).catch(err =>
+      console.log(err),
+    );
     if (!data) {
       data = await fetch(`${this.baseURL}v1/${date}/players.json`)
         .then(res => res.json())
