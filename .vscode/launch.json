@@ -13,6 +13,15 @@
       "cwd": "${workspaceFolder}",
       "protocol": "inspector",
       "outFiles": ["${workspaceFolder}/graphql/build/**/*.js"]
+    },
+    {
+      "name": "Lambda Debug",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceRoot}",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "debug"],
+      "port": 9229
     }
   ]
 }
