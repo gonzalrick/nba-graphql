@@ -1,4 +1,11 @@
-import { Schedule, ScheduleTeam, Team, Player, Game } from '../generated';
+import {
+  Schedule,
+  ScheduleTeam,
+  Team,
+  Player,
+  Game,
+  Standings,
+} from '../generated';
 import { getPeriod } from '../utils';
 
 interface Linescore {
@@ -89,4 +96,32 @@ export function getTeamLogoUrl(teamName: string) {
     .replace(/ /g, '-')
     .replace('la-clippers', 'los-angeles-clippers');
   return `https://i.logocdn.com/nba/current/${teamNameUrl}.svg`;
+}
+
+export function reduceStandings(data: any): Standings[] {
+  const east = data.east.map((team: any) => ({ ...team, conference: 'east' }));
+  const west = data.east.map((team: any) => ({ ...team, conference: 'west' }));
+  return [...east, ...west].map((team: any) => ({
+    clinchedPlayoffsCode: team.clinchedPlayoffsCode,
+    clinchedPlayoffsCodeV2: team.clinchedPlayoffsCodeV2,
+    conference: team.conference,
+    confRank: Number(team.confRank),
+    gamesBehind: Number(team.gamesBehind),
+    isWinStreak: team.isWinStreak,
+    lastTenLoss: Number(team.lastTenLoss),
+    lastTenWin: Number(team.lastTenWin),
+    loss: Number(team.loss),
+    lossPct: Number(team.lossPct),
+    sortKey: {
+      defaultOrder: Number(team.sortKey.defaultOrder),
+      gamesBehind: Number(team.sortKey.gamesBehind),
+      loss: Number(team.sortKey.loss),
+      win: Number(team.sortKey.win),
+      winPct: Number(team.sortKey.winPct),
+    },
+    streak: Number(team.streak),
+    team: team.teamId,
+    win: Number(team.win),
+    winPct: Number(team.winPct),
+  }));
 }

@@ -12,6 +12,8 @@ export interface Query {
   players: Player[];
 
   teams: Team[];
+
+  standings: Standings[];
 }
 
 export interface Game {
@@ -280,6 +282,50 @@ export interface Team {
   logo?: Maybe<string>;
 }
 
+export interface Standings {
+  clinchedPlayoffsCode?: Maybe<string>;
+
+  clinchedPlayoffsCodeV2?: Maybe<string>;
+
+  conference: string;
+
+  confRank: number;
+
+  gamesBehind: number;
+
+  isWinStreak: boolean;
+
+  lastTenLoss: number;
+
+  lastTenWin: number;
+
+  loss: number;
+
+  lossPct: number;
+
+  sortKey: SortKey;
+
+  streak: number;
+
+  team: Team;
+
+  win: number;
+
+  winPct: number;
+}
+
+export interface SortKey {
+  defaultOrder: number;
+
+  gamesBehind: number;
+
+  loss: number;
+
+  win: number;
+
+  winPct: number;
+}
+
 export interface GameStatLeaders {
   points?: Maybe<GameStatLeaderValues>;
 
@@ -314,6 +360,9 @@ export interface PlayersQueryArgs {
   date: string;
 }
 export interface TeamsQueryArgs {
+  date: string;
+}
+export interface StandingsQueryArgs {
   date: string;
 }
 
@@ -379,6 +428,8 @@ export namespace QueryResolvers {
     players?: PlayersResolver<Player[], TypeParent, TContext>;
 
     teams?: TeamsResolver<Team[], TypeParent, TContext>;
+
+    standings?: StandingsResolver<Standings[], TypeParent, TContext>;
   }
 
   export type GameResolver<
@@ -416,6 +467,15 @@ export namespace QueryResolvers {
     TContext = IContext
   > = Resolver<R, Parent, TContext, TeamsArgs>;
   export interface TeamsArgs {
+    date: string;
+  }
+
+  export type StandingsResolver<
+    R = Standings[],
+    Parent = {},
+    TContext = IContext
+  > = Resolver<R, Parent, TContext, StandingsArgs>;
+  export interface StandingsArgs {
     date: string;
   }
 }
@@ -1344,6 +1404,164 @@ export namespace TeamResolvers {
   > = Resolver<R, Parent, TContext>;
 }
 
+export namespace StandingsResolvers {
+  export interface Resolvers<TContext = IContext, TypeParent = Standings> {
+    clinchedPlayoffsCode?: ClinchedPlayoffsCodeResolver<
+      Maybe<string>,
+      TypeParent,
+      TContext
+    >;
+
+    clinchedPlayoffsCodeV2?: ClinchedPlayoffsCodeV2Resolver<
+      Maybe<string>,
+      TypeParent,
+      TContext
+    >;
+
+    conference?: ConferenceResolver<string, TypeParent, TContext>;
+
+    confRank?: ConfRankResolver<number, TypeParent, TContext>;
+
+    gamesBehind?: GamesBehindResolver<number, TypeParent, TContext>;
+
+    isWinStreak?: IsWinStreakResolver<boolean, TypeParent, TContext>;
+
+    lastTenLoss?: LastTenLossResolver<number, TypeParent, TContext>;
+
+    lastTenWin?: LastTenWinResolver<number, TypeParent, TContext>;
+
+    loss?: LossResolver<number, TypeParent, TContext>;
+
+    lossPct?: LossPctResolver<number, TypeParent, TContext>;
+
+    sortKey?: SortKeyResolver<SortKey, TypeParent, TContext>;
+
+    streak?: StreakResolver<number, TypeParent, TContext>;
+
+    team?: TeamResolver<Team, TypeParent, TContext>;
+
+    win?: WinResolver<number, TypeParent, TContext>;
+
+    winPct?: WinPctResolver<number, TypeParent, TContext>;
+  }
+
+  export type ClinchedPlayoffsCodeResolver<
+    R = Maybe<string>,
+    Parent = Standings,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+  export type ClinchedPlayoffsCodeV2Resolver<
+    R = Maybe<string>,
+    Parent = Standings,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+  export type ConferenceResolver<
+    R = string,
+    Parent = Standings,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+  export type ConfRankResolver<
+    R = number,
+    Parent = Standings,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+  export type GamesBehindResolver<
+    R = number,
+    Parent = Standings,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+  export type IsWinStreakResolver<
+    R = boolean,
+    Parent = Standings,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+  export type LastTenLossResolver<
+    R = number,
+    Parent = Standings,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+  export type LastTenWinResolver<
+    R = number,
+    Parent = Standings,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+  export type LossResolver<
+    R = number,
+    Parent = Standings,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+  export type LossPctResolver<
+    R = number,
+    Parent = Standings,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+  export type SortKeyResolver<
+    R = SortKey,
+    Parent = Standings,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+  export type StreakResolver<
+    R = number,
+    Parent = Standings,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+  export type TeamResolver<
+    R = Team,
+    Parent = Standings,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+  export type WinResolver<
+    R = number,
+    Parent = Standings,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+  export type WinPctResolver<
+    R = number,
+    Parent = Standings,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+}
+
+export namespace SortKeyResolvers {
+  export interface Resolvers<TContext = IContext, TypeParent = SortKey> {
+    defaultOrder?: DefaultOrderResolver<number, TypeParent, TContext>;
+
+    gamesBehind?: GamesBehindResolver<number, TypeParent, TContext>;
+
+    loss?: LossResolver<number, TypeParent, TContext>;
+
+    win?: WinResolver<number, TypeParent, TContext>;
+
+    winPct?: WinPctResolver<number, TypeParent, TContext>;
+  }
+
+  export type DefaultOrderResolver<
+    R = number,
+    Parent = SortKey,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+  export type GamesBehindResolver<
+    R = number,
+    Parent = SortKey,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+  export type LossResolver<
+    R = number,
+    Parent = SortKey,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+  export type WinResolver<
+    R = number,
+    Parent = SortKey,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+  export type WinPctResolver<
+    R = number,
+    Parent = SortKey,
+    TContext = IContext
+  > = Resolver<R, Parent, TContext>;
+}
+
 export namespace GameStatLeadersResolvers {
   export interface Resolvers<
     TContext = IContext,
@@ -1461,6 +1679,8 @@ export interface IResolvers<TContext = IContext> {
   Schedule?: ScheduleResolvers.Resolvers<TContext>;
   Player?: PlayerResolvers.Resolvers<TContext>;
   Team?: TeamResolvers.Resolvers<TContext>;
+  Standings?: StandingsResolvers.Resolvers<TContext>;
+  SortKey?: SortKeyResolvers.Resolvers<TContext>;
   GameStatLeaders?: GameStatLeadersResolvers.Resolvers<TContext>;
   GameStatLeaderValues?: GameStatLeaderValuesResolvers.Resolvers<TContext>;
   PlayerPersonId?: PlayerPersonIdResolvers.Resolvers<TContext>;

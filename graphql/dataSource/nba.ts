@@ -1,30 +1,28 @@
-import { RESTDataSource } from 'apollo-datasource-rest';
-import fetch from 'node-fetch';
+import { DataSource } from 'apollo-datasource';
 
-import { Schedule, Team, Player, Game } from '../generated';
+import { Schedule, Team, Player, Game, Standings } from '../generated';
 import { has, get, put } from '../utils/storage';
+import { fetchUrl } from '../utils';
 import {
   reduceSchedule,
   reduceTeam,
   reducePlayer,
   reduceGame,
+  reduceStandings,
 } from './reducers';
 
-export class NbaAPI extends RESTDataSource {
-  constructor() {
-    super();
-    this.baseURL = 'http://data.nba.net/10s/prod/';
-  }
+export class NbaAPI extends DataSource {
+  baseURL = 'http://data.nba.net/10s/prod/';
 
   async getSchedule(date: string): Promise<Schedule[]> {
-    const { games } = await this.get(`v2/${date}/scoreboard.json`).catch(err =>
-      console.log(err),
+    const { games } = await fetchUrl(
+      `${this.baseURL}v2/${date}/scoreboard.json`,
     );
     return games.map((game: any) => reduceSchedule(game));
   }
 
   async getGame(date: string, gameId: string): Promise<Game> {
-    const data = await this.get(`v1/${date}/${gameId}_boxscore.json`);
+    const data = await fetchUrl(`v1/${date}/${gameId}_boxscore.json`);
     return reduceGame(data);
   }
 
@@ -34,15 +32,8 @@ export class NbaAPI extends RESTDataSource {
       return get(key);
     }
 
-    let data = await this.get(`v1/${date}/teams.json`).catch(err =>
-      console.log(err),
-    );
-    if (!data) {
-      data = await fetch(`${this.baseURL}v1/${date}/teams.json`)
-        .then(res => res.json())
-        .catch(err => console.log(err));
-    }
-    const teams = data.league.standard.map((team: any) => reduceTeam(team));
+    const { league } = await fetchUrl(`${this.baseURL}v1/${date}/teams.json`);
+    const teams = league.standard.map((team: any) => reduceTeam(team));
     put(key, teams, 86400);
     return teams;
   }
@@ -53,16 +44,25 @@ export class NbaAPI extends RESTDataSource {
       return get(key);
     }
 
-    let data = await this.get(`v1/${date}/players.json`).catch(err =>
-      console.log(err),
-    );
-    if (!data) {
-      data = await fetch(`${this.baseURL}v1/${date}/players.json`)
-        .then(res => res.json())
-        .catch(err => console.log(err));
-    }
-    const players = data.league.standard.map((team: any) => reducePlayer(team));
+    const { league } = await fetchUrl(`v1/${date}/players.json`);
+    const players = league.standard.map((team: any) => reducePlayer(team));
     put(key, players, 86400);
     return players;
+  }
+
+  async getConferenceStandings(date: string): Promise<Standings[]> {
+    const key = `${date}:standings`;
+    if (has(key)) {
+      return get(key);
+    }
+
+    const data = await fetchUrl(
+      `${this.baseURL}v1/${date}/standings_conference.json`,
+    );
+
+    const standings = reduceStandings(data.league.standard.conference);
+    put(key, standings, 86400);
+
+    return standings;
   }
 }

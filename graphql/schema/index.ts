@@ -5,6 +5,7 @@ import { GameTypeDefs, GameResolvers } from './game';
 import { ScheduleTypeDefs, ScheduleResolvers } from './schedule';
 import { PlayerTypeDefs, PlayerResolvers } from './player';
 import { TeamTypeDefs, TeamResolvers } from './team';
+import { StandingsTypeDefs, StandingsResolvers } from './standings';
 
 const typeDef = gql`
   type Query
@@ -17,6 +18,13 @@ export const schema = makeExecutableSchema({
     ScheduleTypeDefs,
     PlayerTypeDefs,
     TeamTypeDefs,
+    StandingsTypeDefs,
   ],
-  resolvers: [GameResolvers, ScheduleResolvers, PlayerResolvers, TeamResolvers],
+  resolvers: [
+    GameResolvers,
+    ScheduleResolvers,
+    StandingsResolvers,
+    PlayerResolvers,
+    TeamResolvers,
+  ],
 });
