@@ -27,7 +27,7 @@
   "devDependencies": {
     "@types/aws-lambda": "^8.10.30",
     "@types/node": "^12.6.8",
-    "graphql-code-generator": "^0.17.0",
+    "graphql-code-generator": "^0.18.2",
     "graphql-codegen-typescript-common": "^0.17.0",
     "graphql-codegen-typescript-resolvers": "^0.17.0",
     "graphql-codegen-typescript-server": "^0.17.0",
